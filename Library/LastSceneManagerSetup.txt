@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Game-Specific Assets/Scenes/Match.unity
+  isLoaded: 1
+  isActive: 1

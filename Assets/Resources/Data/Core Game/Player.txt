@@ -1,0 +1,53 @@
+﻿{
+    "Player":[
+        {
+            "Name":"Chicken",
+            "PlayerState":"Ascending",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/Chicken",
+                "ObjectScale":{
+                    x:1,
+                    y:1,
+                    z:1
+                },
+                "MeshScale":{
+                    x:0.5,
+                    y:0.5,
+                    z:0.5
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":"Visual/Animations/Chicken"
+            },
+            "Stats":[
+                {
+                    "Name":"AscensionLevel",
+                    "Value":0,
+                    "ValueCap": 100,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionRate",
+                    "Value":5,
+                    "ValueCap": 10,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionLockoutRate",
+                    "Value":2,
+                    "ValueCap":2,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"MoveSpeed",
+                    "Value":10,
+                    "ValueCap":20,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                }
+            ]
+        }
+    ]
+}
