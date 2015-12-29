@@ -1,20 +1,27 @@
 ﻿{
     "AI":[
         {
-            "Name":"Human Mob",
+            "Name":"Human",
+            "Tag":"Human",
             "MeshDetail":{
-                "MeshPath":"",
+                "MeshPath":"Visual/Meshes/Human",
                 "ObjectScale":{
-                    x:1,
-                    y:1,
-                    z:1
+                    "x":1,
+                    "y":1,
+                    "z":1
                 },
                 "MeshScale":{
-                    x:1,
-                    y:1,
-                    z:1
+                    "x":1,
+                    "y":1,
+                    "z":1
                 },
-                "MaterialDetails":[]
+                "MeshOffset":{
+                    "x":0,
+                    "y":0.5,
+                    "z":0
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":"Visual/Animations/Human"
             },
             "Stats":[
                 {
@@ -32,6 +39,13 @@
                     "ScalingModifier":1
                 },
                 {
+                    "Name":"AttentionSpanDecayRate",
+                    "Value":1,
+                    "ValueCap":1,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
                     "Name":"SensingRange",
                     "Value":5,
                     "ValueCap":5,
@@ -42,6 +56,128 @@
                     "Name":"MoveSpeed",
                     "Value":10,
                     "ValueCap":20,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                }
+            ]
+        },
+        {
+            "Name":"Chicken",
+            "Tag":"Chicken",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/Chicken",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":0,
+                    "z":0
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":"Visual/Animations/Chicken"
+            },
+            "Stats":[
+                {
+                    "Name":"AttentionSpan",
+                    "Value":100,
+                    "ValueCap":100,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AttentionSpanDecay",
+                    "Value":5,
+                    "ValueCap":5,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AttentionSpanDecayRate",
+                    "Value":1,
+                    "ValueCap":1,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"SensingRange",
+                    "Value":5,
+                    "ValueCap":5,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"MoveSpeed",
+                    "Value":10,
+                    "ValueCap":20,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                }
+            ]
+        },
+        {
+            "Name":"ChickenWing",
+            "Tag":"Dead Chicken",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/ChickenWing",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":0,
+                    "z":0
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":""
+            },
+            "Stats":[
+                {
+                    "Name":"AttentionSpan",
+                    "Value":100,
+                    "ValueCap":100,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AttentionSpanDecay",
+                    "Value":0,
+                    "ValueCap":0,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AttentionSpanDecayRate",
+                    "Value":10,
+                    "ValueCap":10,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"SensingRange",
+                    "Value":5,
+                    "ValueCap":5,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"MoveSpeed",
+                    "Value":0,
+                    "ValueCap":0,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }

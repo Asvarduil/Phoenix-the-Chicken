@@ -11,6 +11,8 @@ public class PlayerActuator : DebuggableBehavior
     public int AscensionLevelForNextPhase;
     public string AscensionEffectPath;
     public string NextPlayerModelName;
+    public List<string> TagsThatCauseDeath;
+    public string DeathModelName;
 
     public string VerticalAxis;
     public string HorizontalAxis;
@@ -96,6 +98,11 @@ public class PlayerActuator : DebuggableBehavior
         UpdatePhaseGauge();
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        CheckForFailure(collision.collider);
+    }
+
     #endregion Hooks
 
     #region Realization Methods
@@ -103,6 +110,7 @@ public class PlayerActuator : DebuggableBehavior
     public void RealizeModel(PlayerModel model)
     {
         gameObject.name = model.Name;
+        gameObject.tag = model.Tag;
         
         RealizeStats(model);
         RealizeMeshDetails(model.MeshDetail);
@@ -120,7 +128,13 @@ public class PlayerActuator : DebuggableBehavior
         AscensionLevelForNextPhase = model.AscensionLevelForNextPhase;
         AscensionEffectPath = model.AscensionEffectPath;
         NextPlayerModelName = model.NextPlayerModelName;
+        TagsThatCauseDeath = model.TagsThatCauseDeath.DeepCopyList();
+        DeathModelName = model.DeathModelName;
+
         Stats = model.Stats.DeepCopyList();
+
+        ModifiableStat moveSpeed = Stats.FindItemByName("MoveSpeed");
+        Motion.MovementSpeed = moveSpeed.Value;
     }
 
     private void RealizeMeshDetails(MeshDetail meshDetail)
@@ -142,6 +156,7 @@ public class PlayerActuator : DebuggableBehavior
 
         GameObject instance = (GameObject) Instantiate(meshObject, transform.position, transform.rotation);
         instance.name = "Mesh";
+        instance.transform.position = transform.position + meshDetail.MeshOffset;
         instance.transform.localScale = meshDetail.MeshScale;
         instance.transform.parent = gameObject.transform;
 
@@ -202,6 +217,19 @@ public class PlayerActuator : DebuggableBehavior
     #endregion Realization Methods
 
     #region Control Methods
+
+    private void CheckForFailure(Collider who)
+    {
+        if (!TagsThatCauseDeath.Contains(who.tag))
+            return;
+
+        // The thing that collided with us does, in fact, cause death.
+        MatchEntityManager.InactivatePlayerAvatar(gameObject, PlayerState);
+        MatchEntityManager.SpawnMob(transform.position, transform.rotation, DeathModelName);
+
+        // TODO: Short delay, music change, then show failure UI.
+        GameUIController.ShowFailureUI();
+    }
 
     private void ReadControlAxes()
     {
@@ -278,7 +306,12 @@ public class PlayerActuator : DebuggableBehavior
     private void CheckForPhaseChange()
     {
         if (AscensionLevel.Value != AscensionLevelForNextPhase)
+        {
+            DebugMessage("Cannot ascend; AscensionLevel = " + AscensionLevel.Value + ", AscensionLevelForNextPhase = " + AscensionLevelForNextPhase);
             return;
+        }
+
+        DebugMessage("Ascension occurring!");
 
         // Instantiate the ascension effect...
         if (!string.IsNullOrEmpty(AscensionEffectPath))

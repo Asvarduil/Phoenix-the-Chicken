@@ -21,5 +21,14 @@ public class AIRepository : RepositoryBase<AIRepository, AIModel>
 
     #region Methods
 
+    public AIModel GetAIModelByName(string mobModelName)
+    {
+        AIModel result = Contents.FindItemByName(mobModelName);
+        if (result == default(AIModel))
+            return null;
+
+        return result;
+    }
+
     #endregion Methods
 }

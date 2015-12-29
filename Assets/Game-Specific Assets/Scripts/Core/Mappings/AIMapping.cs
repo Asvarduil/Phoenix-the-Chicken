@@ -56,6 +56,7 @@ public class AIMapping : SimpleJsonMapper<AIModel>
         AIModel newModel = new AIModel();
 
         newModel.Name = node["Name"];
+        newModel.Tag = node["Tag"];
         newModel.Stats = node["Stats"].AsArray.MapArrayWithMapper(ModifiableStatMapper);
         newModel.MeshDetail = MeshDetailMapper.ImportState(node["MeshDetail"].AsObject);
 

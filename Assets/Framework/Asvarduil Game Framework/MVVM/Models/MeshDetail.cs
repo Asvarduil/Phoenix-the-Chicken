@@ -10,6 +10,7 @@ public class MeshDetail
     public string MeshPath;
     public Vector3 ObjectScale;
     public Vector3 MeshScale;
+    public Vector3 MeshOffset;
 
     public List<MaterialDetail> MaterialDetails;
 

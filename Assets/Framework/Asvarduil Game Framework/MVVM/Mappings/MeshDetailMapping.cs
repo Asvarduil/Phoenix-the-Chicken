@@ -31,6 +31,7 @@ public class MeshDetailMapping : SimpleJsonMapper<MeshDetail>
             MeshPath = node["MeshPath"],
             ObjectScale = node["ObjectScale"].ImportVector3(),
             MeshScale = node["MeshScale"].ImportVector3(),
+            MeshOffset = node["MeshOffset"].ImportVector3(),
             MaterialDetails = node["MaterialDetails"].AsArray.MapArrayWithMapper(MaterialDetailMapper),
             AnimationControllerPath = node["AnimationControllerPath"]
         };

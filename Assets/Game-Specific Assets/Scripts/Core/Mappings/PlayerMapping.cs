@@ -45,10 +45,13 @@ public class PlayerMapping : SimpleJsonMapper<PlayerModel>
         JSONClass state = new JSONClass();
 
         state["Name"] = data.Name;
+        state["Tag"] = data.Tag;
         state["PlayerState"] = data.PlayerState.ToString();
         state["AscensionLevelForNextPhase"] = new JSONData(data.AscensionLevelForNextPhase);
         state["AscensionEffectPath"] = data.AscensionEffectPath;
         state["NextPlayerModelName"] = data.NextPlayerModelName;
+        state["TagsThatCauseDeath"] = data.TagsThatCauseDeath.FoldPrimitiveList();
+        state["DeathModelName"] = data.DeathModelName;
         state["Stats"] = data.Stats.FoldList(ModifiableStatMapper);
         state["MeshDetail"] = MeshDetailMapper.ExportState(data.MeshDetail);
 
@@ -60,10 +63,13 @@ public class PlayerMapping : SimpleJsonMapper<PlayerModel>
         PlayerModel newModel = new PlayerModel();
 
         newModel.Name = node["Name"];
+        newModel.Tag = node["Tag"];
         newModel.PlayerState = node["PlayerState"].ToEnum<PlayerState>();
-        newModel.AscensionLevelForNextPhase = node["AscensionLevelToNextPhase"].AsInt;
+        newModel.AscensionLevelForNextPhase = node["AscensionLevelForNextPhase"].AsInt;
         newModel.AscensionEffectPath = node["AscensionEffectPath"];
         newModel.NextPlayerModelName = node["NextPlayerModelName"];
+        newModel.TagsThatCauseDeath = node["TagsThatCauseDeath"].AsArray.UnfoldStringJsonArray();
+        newModel.DeathModelName = node["DeathModelName"];
         newModel.Stats = node["Stats"].AsArray.MapArrayWithMapper(ModifiableStatMapper);
         newModel.MeshDetail = MeshDetailMapper.ImportState(node["MeshDetail"].AsObject);
 

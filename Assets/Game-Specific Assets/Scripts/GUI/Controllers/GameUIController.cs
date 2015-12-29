@@ -39,9 +39,23 @@ public class GameUIController : ManagerBase<GameUIController>
         }
     }
 
+    private GameOverPresenter _gameOverPresenter;
+    private GameOverPresenter GameOverPresenter
+    {
+        get
+        {
+            return _gameOverPresenter ?? (_gameOverPresenter = FindObjectOfType<GameOverPresenter>());
+        }
+    }
+
     #endregion Properties
 
     #region Hooks
+
+    public void ShowPhoenixGauge(bool presentGauge)
+    {
+        PhoenixGaugePresenter.PresentGUI(presentGauge);
+    }
 
     public void ChangePhoenixGaugeState(PlayerState state, int current, int max)
     {
@@ -62,6 +76,15 @@ public class GameUIController : ManagerBase<GameUIController>
     public void UpdateRevivingGauge(int current, int max)
     {
         RevivingGaugePresenter.UpdateGauge(current, max);
+    }
+
+    public void ShowFailureUI()
+    {
+        ShowRevivingGauge(false);
+        ShowPhoenixGauge(false);
+
+        // TODO: Populate the survival time and numbers of chickens revived.
+        GameOverPresenter.PresentGUI(true);
     }
 
     public void Retry()

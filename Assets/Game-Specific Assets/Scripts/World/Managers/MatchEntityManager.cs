@@ -10,6 +10,7 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
     public string DefaultPlayerModelName;
     public GameObject PlayerTemplate;
     public List<GameObjectPhaseStatePair> CachedPlayerObjects;
+    public GameObject MobTemplate;
 
     private PlayerRepository _playerRepository;
     private PlayerRepository PlayerRepository
@@ -17,6 +18,15 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
         get
         {
             return _playerRepository ?? (_playerRepository = PlayerRepository.Instance);
+        }
+    }
+
+    private AIRepository _aiRepository;
+    private AIRepository AIRepository
+    {
+        get
+        {
+            return _aiRepository ?? (_aiRepository = AIRepository.Instance);
         }
     }
 
@@ -40,7 +50,8 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
 
     private IEnumerator StartAfterRepositoriesLoaded()
     {
-        while (!PlayerRepository.HasLoaded)
+        while (!PlayerRepository.HasLoaded
+               && !AIRepository.HasLoaded)
             yield return 0;
 
         SwitchToNewPlayerAvatar(Vector3.zero, Quaternion.identity, DefaultPlayerModelName);
@@ -84,9 +95,28 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
         RPGCamera.SetTarget(playerObject);
     }
 
+    public void SpawnMob(Vector3 position, Quaternion rotation, string mobModelName)
+    {
+        AIModel model = AIRepository.GetAIModelByName(mobModelName);
+        if (model == null)
+            throw new ApplicationException("Could not find a model named " + mobModelName + ".");
+
+        MobActuator actuator;
+        GameObject mobObject = (GameObject)Instantiate(MobTemplate, position, rotation);
+        actuator = mobObject.GetComponent<MobActuator>();
+        actuator.RealizeModel(model);
+    }
+
+    public void InactivateMob(GameObject mob)
+    {
+        // TODO: Figure out a way to pool mobs.
+        //mob.SetActive(false);
+        Destroy(mob);
+    }
+
     #endregion Hooks
 
-    #region Methods
+    #region Player Caching Methods
 
     private void AddPlayerObjectToCache(GameObject playerGameObject, PlayerState state)
     {
@@ -114,5 +144,5 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
         return result;
     }
 
-    #endregion Methods
+    #endregion Player Caching Methods
 }

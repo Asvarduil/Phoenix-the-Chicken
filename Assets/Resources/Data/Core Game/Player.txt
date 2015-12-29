@@ -2,18 +2,31 @@
     "Player":[
         {
             "Name":"Chicken",
+            "Tag":"Chicken",
             "PlayerState":"Ascending",
+            "AscensionEffectPath":"",
+            "AscensionLevelForNextPhase":100,
+            "NextPlayerModelName":"Phoenix",
+            "TagsThatCauseDeath":[
+                "Human"
+            ],
+            "DeathModelName":"ChickenWing",
             "MeshDetail":{
                 "MeshPath":"Visual/Meshes/Chicken",
                 "ObjectScale":{
-                    x:1,
-                    y:1,
-                    z:1
+                    "x":1,
+                    "y":1,
+                    "z":1
                 },
                 "MeshScale":{
-                    x:0.5,
-                    y:0.5,
-                    z:0.5
+                    "x":0.5,
+                    "y":0.5,
+                    "z":0.5
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":0,
+                    "z":0
                 },
                 "MaterialDetails":[],
                 "AnimationControllerPath":"Visual/Animations/Chicken"
@@ -30,6 +43,67 @@
                     "Name":"AscensionRate",
                     "Value":5,
                     "ValueCap": 10,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionLockoutRate",
+                    "Value":2,
+                    "ValueCap":2,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"MoveSpeed",
+                    "Value":10,
+                    "ValueCap":20,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                }
+            ]
+        },
+        {
+            "Name":"Phoenix",
+            "Tag":"Phoenix",
+            "PlayerState":"Phoenix",
+            "AscensionEffectPath":"",
+            "AscensionLevelForNextPhase":0,
+            "NextPlayerModelName":"Phoenix",
+            "TagsThatCauseDeath":[
+            ],
+            "DeathModelName":"ChickenWing",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/Phoenix",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":0.5,
+                    "y":0.5,
+                    "z":0.5
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":1,
+                    "z":0
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":"Visual/Animations/Phoenix"
+            },
+            "Stats":[
+                {
+                    "Name":"AscensionLevel",
+                    "Value":100,
+                    "ValueCap": 100,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionRate",
+                    "Value":-5
+                    "ValueCap": -5,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 },
