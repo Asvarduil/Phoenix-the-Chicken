@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchMobSpawnRegion : DebuggableBehavior
+public class MatchMobSpawnRegion : SensorBase
 {
     #region Variables / Properties
-
-    public List<string> AffectedTags;
-    public float Radius;
-    public Lockout DetectionLockout;
 
     public List<string> MobModels;
     public List<GameObject> MobSpawnPoints;
@@ -29,9 +25,9 @@ public class MatchMobSpawnRegion : DebuggableBehavior
 
     #region Hooks
 
-    public void Update()
+    new public void Update()
     {
-        if (!HasDetectedPlayer())
+        if (!HasDetectedEntities())
             return;
 
         SpawnMob();
@@ -41,7 +37,7 @@ public class MatchMobSpawnRegion : DebuggableBehavior
 
     #region Methods
 
-    public bool HasDetectedPlayer()
+    public override bool HasDetectedEntities()
     {
         if (!DetectionLockout.CanAttempt())
             return false;
@@ -51,22 +47,6 @@ public class MatchMobSpawnRegion : DebuggableBehavior
 
         var sensedEntities = GetInterestingObjects(hitColliders, AffectedTags);
         return sensedEntities.Count > 0;
-    }
-
-    public List<GameObject> GetInterestingObjects(Collider[] colliders, List<string> affectedTags)
-    {
-        List<GameObject> result = new List<GameObject>();
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            Collider current = colliders[i];
-            if (!affectedTags.Contains(current.tag))
-                continue;
-
-            result.Add(current.gameObject);
-        }
-
-        return result;
     }
 
     public void SpawnMob()

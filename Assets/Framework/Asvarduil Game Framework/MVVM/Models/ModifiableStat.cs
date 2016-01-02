@@ -2,7 +2,7 @@
 using SimpleJSON;
 
 [Serializable]
-public class ModifiableStat : IEntityStat, INamed, ICloneable
+public class ModifiableStat : INamed, ICloneable
 {
 	#region Variables / Properties
 
@@ -38,6 +38,16 @@ public class ModifiableStat : IEntityStat, INamed, ICloneable
         }
 	}
 
+    public bool IsAtMax
+    {
+        get { return ModifiedValue == ValueCap; }
+    }
+
+    public bool IsAtZero
+    {
+        get { return ModifiedValue == 0; }
+    }
+
     #endregion Variables / Properties
 
     #region Methods
@@ -49,38 +59,32 @@ public class ModifiableStat : IEntityStat, INamed, ICloneable
             Name = Name,
             Value = Value,
             ValueCap = ValueCap,
-            FixedModifier = FixedModifier,
-            ScalingModifier = ScalingModifier
+            ScalingModifier = ScalingModifier,
+            FixedModifier = FixedModifier
         };
 
         return clone;
     }
 
+    public void Increase(int amount)
+    {
+        Value += amount;
+
+        if (Value > ValueCap)
+            Value = ValueCap;
+    }
+
+    public void Decrease(int amount)
+    {
+        Value -= amount;
+
+        if (Value < 0)
+            Value = 0;
+    }
+
     public void RaiseMax(int amount)
     {
         ValueCap += amount;
-    }
-
-    public JSONClass ExportState()
-    {
-        JSONClass state = new JSONClass();
-
-        state["Name"] = new JSONData(Name);
-        state["Value"] = new JSONData(Value);
-        state["ValueCap"] = new JSONData(ValueCap);
-        state["FixedModifier"] = new JSONData(FixedModifier);
-        state["ScalingModifier"] = new JSONData(ScalingModifier);
-
-        return state;
-    }
-
-    public void ImportState(JSONClass state)
-    {
-        Name = state["Name"];
-        Value = state["Value"].AsInt;
-        ValueCap = state["ValueCap"].AsInt;
-        FixedModifier = state["FixedModifier"].AsInt;
-        ScalingModifier = state["ScalingModifier"].AsFloat;
     }
 
     #endregion Methods

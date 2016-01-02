@@ -119,14 +119,17 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\GaugePresenter.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\PhoenixGaugePresenter.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\RevivingGaugePresenter.cs" />
-    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\MobActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\EntityMotion.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\MobActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerState.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\RevivableActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\GameObjectPhaseStatePair.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\MatchEntityManager.cs" />
-    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Sensors\MatchMobSpawnRegion.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Sensors\EntityDetector.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Sensors\MatchMobSpawnRegion.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Sensors\RevivableSensor.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Sensors\SensorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Data\Core Game\AI.txt" />
