@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MatchMobSpawnRegion : SensorBase
@@ -6,7 +7,7 @@ public class MatchMobSpawnRegion : SensorBase
     #region Variables / Properties
 
     public List<string> MobModels;
-    public List<GameObject> MobSpawnPoints;
+    public List<GameObject> SpawnPoints;
     public List<string> OccupyingTags;
     public float EmptyCheckRadius;
     public Lockout SpawnLockout;
@@ -25,6 +26,11 @@ public class MatchMobSpawnRegion : SensorBase
 
     #region Hooks
 
+    public void Start()
+    {
+        DetectSpawnPoints();
+    }
+
     new public void Update()
     {
         if (!HasDetectedEntities())
@@ -36,6 +42,12 @@ public class MatchMobSpawnRegion : SensorBase
     #endregion Hooks
 
     #region Methods
+
+    private void DetectSpawnPoints()
+    {
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
+        SpawnPoints = spawnPoints.ToList();
+    }
 
     public override bool HasDetectedEntities()
     {
@@ -61,8 +73,8 @@ public class MatchMobSpawnRegion : SensorBase
         bool pointSelected = false;
         do
         {
-            int pointId = Random.Range(0, MobSpawnPoints.Count);
-            GameObject spawnPoint = MobSpawnPoints[pointId];
+            int pointId = Random.Range(0, SpawnPoints.Count);
+            GameObject spawnPoint = SpawnPoints[pointId];
 
             bool isOccupied = IsSpawnPointOccupied(spawnPoint);
             if (!isOccupied)

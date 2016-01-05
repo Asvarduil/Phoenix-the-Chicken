@@ -8,6 +8,8 @@ public class AIModel : INamed
 
     public string Name;
     public string Tag;
+    public string MoveAnimation;
+    public List<RankedTagReaction> Reactions;
     public List<ModifiableStat> Stats;
     public MeshDetail MeshDetail;
 

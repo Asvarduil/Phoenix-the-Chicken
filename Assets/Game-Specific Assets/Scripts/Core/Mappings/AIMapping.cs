@@ -24,6 +24,15 @@ public class AIMapping : SimpleJsonMapper<AIModel>
         }
     }
 
+    private RankedTagReactionMapping _rankedTagReactionMapper;
+    private RankedTagReactionMapping RankedTagReactionMapper
+    {
+        get
+        {
+            return _rankedTagReactionMapper ?? (_rankedTagReactionMapper = new RankedTagReactionMapping());
+        }
+    }
+
     #endregion Variables / Properties
 
     #region Methods
@@ -57,6 +66,8 @@ public class AIMapping : SimpleJsonMapper<AIModel>
 
         newModel.Name = node["Name"];
         newModel.Tag = node["Tag"];
+        newModel.MoveAnimation = node["MoveAnimation"];
+        newModel.Reactions = node["Reactions"].AsArray.MapArrayWithMapper(RankedTagReactionMapper);
         newModel.Stats = node["Stats"].AsArray.MapArrayWithMapper(ModifiableStatMapper);
         newModel.MeshDetail = MeshDetailMapper.ImportState(node["MeshDetail"].AsObject);
 

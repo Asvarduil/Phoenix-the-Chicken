@@ -23,6 +23,19 @@
                 "MaterialDetails":[],
                 "AnimationControllerPath":"Visual/Animations/Human"
             },
+            "MoveAnimation":"Human - Run",
+            "Reactions":[
+                {
+                    "Rank":1,
+                    "Tag":"Chicken",
+                    "Behavior":"Pursue"
+                },
+                {
+                    "Rank":2,
+                    "Tag":"Phoenix",
+                    "Behavior":"Avoid"
+                }
+            ],
             "Stats":[
                 {
                     "Name":"AttentionSpan",
@@ -54,8 +67,8 @@
                 },
                 {
                     "Name":"MoveSpeed",
-                    "Value":10,
-                    "ValueCap":20,
+                    "Value":9,
+                    "ValueCap":18,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }
@@ -72,9 +85,9 @@
                     "z":1
                 },
                 "MeshScale":{
-                    "x":1,
-                    "y":1,
-                    "z":1
+                    "x":0.5,
+                    "y":0.5,
+                    "z":0.5
                 },
                 "MeshOffset":{
                     "x":0,
@@ -84,6 +97,19 @@
                 "MaterialDetails":[],
                 "AnimationControllerPath":"Visual/Animations/Chicken"
             },
+            "MoveAnimation":"Chicken - Default",
+            "Reactions":[
+                {
+                    "Rank":1,
+                    "Tag":"Human",
+                    "Behavior":"Avoid"
+                },
+                {
+                    "Rank":2,
+                    "Tag":"Phoenix",
+                    "Behavior":"Pursue"
+                }
+            ],
             "Stats":[
                 {
                     "Name":"AttentionSpan",
@@ -115,8 +141,8 @@
                 },
                 {
                     "Name":"MoveSpeed",
-                    "Value":10,
-                    "ValueCap":20,
+                    "Value":8,
+                    "ValueCap":16,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }
@@ -145,6 +171,8 @@
                 "MaterialDetails":[],
                 "AnimationControllerPath":""
             },
+            "MoveAnimation":"",
+            "Reactions":[],
             "Stats":[
                 {
                     "Name":"AttentionSpan",
