@@ -11,32 +11,30 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
     public GameObject PlayerTemplate;
     public List<GameObjectPhaseStatePair> CachedPlayerObjects;
     public GameObject MobTemplate;
+    public GameObject RevivableTemplate;
 
     private PlayerRepository _playerRepository;
     private PlayerRepository PlayerRepository
     {
-        get
-        {
-            return _playerRepository ?? (_playerRepository = PlayerRepository.Instance);
-        }
+        get { return _playerRepository ?? (_playerRepository = PlayerRepository.Instance); }
     }
 
     private AIRepository _aiRepository;
     private AIRepository AIRepository
     {
-        get
-        {
-            return _aiRepository ?? (_aiRepository = AIRepository.Instance);
-        }
+        get { return _aiRepository ?? (_aiRepository = AIRepository.Instance); }
+    }
+
+    private RevivableRepository _revivableRepository;
+    private RevivableRepository RevivableRepository
+    {
+        get { return _revivableRepository ?? (_revivableRepository = RevivableRepository.Instance); }
     }
 
     private RPGCamera _rpgCamera;
     private RPGCamera RPGCamera
     {
-        get
-        {
-            return _rpgCamera ?? (_rpgCamera = FindObjectOfType<RPGCamera>());
-        }
+        get { return _rpgCamera ?? (_rpgCamera = FindObjectOfType<RPGCamera>()); }
     }
 
     #endregion Variables / Properties
@@ -112,6 +110,18 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
         // TODO: Figure out a way to pool mobs.
         //mob.SetActive(false);
         Destroy(mob);
+    }
+
+    public void SpawnRevivable(Vector3 position, Quaternion rotation, string revivableModelName)
+    {
+        RevivableModel model = RevivableRepository.GetRevivableByName(revivableModelName);
+        if (model == null)
+            throw new ApplicationException("Could not find a model named " + revivableModelName + ".");
+
+        RevivableActuator actuator;
+        GameObject revivableObject = (GameObject)Instantiate(RevivableTemplate, position, rotation);
+        actuator = revivableObject.GetComponent<RevivableActuator>();
+        actuator.RealizeModel(model);
     }
 
     #endregion Hooks

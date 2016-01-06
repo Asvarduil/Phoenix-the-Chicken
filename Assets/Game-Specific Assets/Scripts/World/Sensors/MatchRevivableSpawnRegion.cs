@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchMobSpawnRegion : SensorBase
+public class MatchRevivableSpawnRegion : SensorBase
 {
     #region Variables / Properties
 
-    public List<string> MobModels;
+    public List<string> RevivableModels;
     public List<GameObject> SpawnPoints;
     public List<string> OccupyingTags;
     public float EmptyCheckRadius;
@@ -35,7 +35,7 @@ public class MatchMobSpawnRegion : SensorBase
         if (!HasDetectedEntities())
             return;
 
-        SpawnMob();
+        SpawnRevivable();
     }
 
     #endregion Hooks
@@ -44,7 +44,7 @@ public class MatchMobSpawnRegion : SensorBase
 
     private void DetectSpawnPoints()
     {
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Revivable Spawn Point");
         SpawnPoints = spawnPoints.ToList();
     }
 
@@ -60,13 +60,13 @@ public class MatchMobSpawnRegion : SensorBase
         return sensedEntities.Count > 0;
     }
 
-    public void SpawnMob()
+    public void SpawnRevivable()
     {
         if (!SpawnLockout.CanAttempt())
             return;
 
-        int modelId = Random.Range(0, MobModels.Count);
-        string modelName = MobModels[modelId];
+        int modelId = Random.Range(0, RevivableModels.Count);
+        string modelName = RevivableModels[modelId];
 
         int spawnAttempts = 0;
         bool pointSelected = false;
@@ -79,7 +79,7 @@ public class MatchMobSpawnRegion : SensorBase
             if (!isOccupied)
             {
                 pointSelected = true;
-                MatchEntityManager.SpawnMob(spawnPoint.transform.position, spawnPoint.transform.rotation, modelName);
+                MatchEntityManager.SpawnRevivable(spawnPoint.transform.position, spawnPoint.transform.rotation, modelName);
             }
             else
             {

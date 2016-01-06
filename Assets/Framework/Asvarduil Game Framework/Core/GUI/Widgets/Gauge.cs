@@ -17,8 +17,13 @@ public class Gauge : DebuggableBehavior
     private float _gaugeSize;
     private float _targetGaugeSize;
 
-    private Image _image;
     private RectTransform _rectTransform;
+
+    private Image _image;
+    private Image Image
+    {
+        get { return _image ?? (_image = GetComponent<Image>()); }
+    }
 
     #endregion Variables / Properties
 
@@ -26,7 +31,6 @@ public class Gauge : DebuggableBehavior
 
     public void Start()
     {
-        _image = GetComponent<Image>();
         _rectTransform = GetComponent<RectTransform>();
     }
 
@@ -53,12 +57,12 @@ public class Gauge : DebuggableBehavior
 
     public void ShowGauge()
     {
-        _image.enabled = true;
+        Image.enabled = true;
     }
 
     public void HideGauge()
     {
-        _image.enabled = false;
+        Image.enabled = false;
     }
 
     #endregion Hooks

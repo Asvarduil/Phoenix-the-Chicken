@@ -17,6 +17,7 @@
 
     public void Retry()
     {
+        DebugMessage("Player is retrying...");
         PlayButtonSound();
 
         Controller.Retry();
@@ -24,6 +25,7 @@
 
     public void TitleScreen()
     {
+        DebugMessage("Player is quitting to title screen...");
         PlayButtonSound();
 
         Controller.TitleScreen();

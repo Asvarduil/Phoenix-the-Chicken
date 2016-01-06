@@ -60,15 +60,15 @@
                 },
                 {
                     "Name":"SensingRange",
-                    "Value":5,
-                    "ValueCap":5,
+                    "Value":7,
+                    "ValueCap":7,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 },
                 {
                     "Name":"MoveSpeed",
-                    "Value":9,
-                    "ValueCap":18,
+                    "Value":8,
+                    "ValueCap":16,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }
@@ -107,7 +107,7 @@
                 {
                     "Rank":2,
                     "Tag":"Phoenix",
-                    "Behavior":"Pursue"
+                    "Behavior":"Avoid"
                 }
             ],
             "Stats":[
@@ -134,15 +134,15 @@
                 },
                 {
                     "Name":"SensingRange",
-                    "Value":5,
-                    "ValueCap":5,
+                    "Value":10,
+                    "ValueCap":10,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 },
                 {
                     "Name":"MoveSpeed",
-                    "Value":8,
-                    "ValueCap":16,
+                    "Value":6,
+                    "ValueCap":12,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }

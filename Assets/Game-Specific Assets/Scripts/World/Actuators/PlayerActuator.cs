@@ -170,8 +170,7 @@ public class PlayerActuator : DebuggableBehavior
 
     private void RealizeMeshRenderer(MeshDetail meshDetail)
     {
-        //MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
-        SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        Renderer renderer = GetRendererInChildren();
         if (renderer == null)
             throw new InvalidOperationException("Could not find a MeshRenderer in any children of game object " + gameObject.name);
 
@@ -187,6 +186,19 @@ public class PlayerActuator : DebuggableBehavior
         }
 
         renderer.materials = materials.ToArray();
+    }
+
+    private Renderer GetRendererInChildren()
+    {
+        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
+        if (meshRenderer != null)
+            return meshRenderer;
+
+        SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        if (skinnedMeshRenderer != null)
+            return skinnedMeshRenderer;
+
+        return null;
     }
 
     private Material ParseMaterial(MaterialDetail detail)

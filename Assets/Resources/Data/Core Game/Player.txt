@@ -95,7 +95,7 @@
             "Stats":[
                 {
                     "Name":"AscensionLevel",
-                    "Value":100,
+                    "Value":99,
                     "ValueCap": 100,
                     "FixedModifier":0,
                     "ScalingModifier":1
