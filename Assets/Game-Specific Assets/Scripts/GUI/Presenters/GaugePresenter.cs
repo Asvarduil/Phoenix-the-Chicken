@@ -6,7 +6,8 @@ public class GaugePresenter : DebuggableBehavior
 
     public Image GaugeBackground;
     public Gauge Gauge;
-    public Image GaugeLegend;
+    public Image GaugeStartLegend;
+    public Image GaugeEndLegend;
 
     #endregion Variables / Properties
 
@@ -18,7 +19,8 @@ public class GaugePresenter : DebuggableBehavior
 
         GaugeBackground.enabled = true;
         Gauge.ShowGauge();
-        GaugeLegend.enabled = true;
+        GaugeStartLegend.enabled = true;
+        GaugeEndLegend.enabled = true;
     }
 
     public void HideGauge()
@@ -27,7 +29,8 @@ public class GaugePresenter : DebuggableBehavior
 
         GaugeBackground.enabled = false;
         Gauge.HideGauge();
-        GaugeLegend.enabled = false;
+        GaugeStartLegend.enabled = false;
+        GaugeEndLegend.enabled = false;
     }
 
     public void RecalculateGaugeSize(int current, int max)

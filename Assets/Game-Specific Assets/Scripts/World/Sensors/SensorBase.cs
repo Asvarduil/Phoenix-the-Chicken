@@ -9,13 +9,35 @@ public class SensorBase : DebuggableBehavior
     public Lockout DetectionLockout;
     public List<string> AffectedTags;
 
-    public List<GameObject> SensedEntities;
+    public List<GameObject> SensedEntities = new List<GameObject>();
+
+    private int PriorEntityCount = 0;
+
+    public bool HasSensedNothing
+    {
+        get { return SensedEntities.Count == 0; }
+    }
+
+    public bool HasSensedSomething
+    {
+        get { return SensedEntities.Count > 0; }
+    }
+
+    public bool HasEntered
+    {
+        get { return SensedEntities.Count > PriorEntityCount; }
+    }
+
+    public bool HasLeft
+    {
+        get { return SensedEntities.Count < PriorEntityCount; }
+    }
 
     #endregion Variables / Properties
 
     #region Hooks
 
-    public void Update()
+    public virtual void Update()
     {
         DetectEntities();
     }
@@ -36,6 +58,7 @@ public class SensorBase : DebuggableBehavior
             return;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, Radius);
+        PriorEntityCount = SensedEntities.Count;
         SensedEntities = GetInterestingObjects(hitColliders, AffectedTags);
 
         DetectionLockout.NoteLastOccurrence();

@@ -21,6 +21,15 @@ public class RevivableActuator : DebuggableBehavior
         get { return Stats.FindItemByName("ReviveStatus"); }
     }
 
+    private ScoreManager _scoreManager;
+    private ScoreManager ScoreManager
+    {
+        get
+        {
+            return _scoreManager ?? (_scoreManager = ScoreManager.Instance);
+        }
+    }
+
     private RevivableSensor _revivableSensor;
     private RevivableSensor RevivableSensor
     {
@@ -173,28 +182,45 @@ public class RevivableActuator : DebuggableBehavior
 
     private void CheckForReviveProximity()
     {
-        if (!RevivableSensor.HasDetectedEntities())
-        {
-            DebugMessage("An object that can revive " + gameObject.name + " is not nearby.");
-            GameUIController.ShowRevivingGauge(false);
-            return;
-        }
-
-        GameUIController.ShowRevivingGauge(true);
-
         if (!ReviveUpdateLockout.CanAttempt())
             return;
 
+        ReviveUpdateLockout.NoteLastOccurrence();
+        RevivableSensor.DetectEntities();
+
+        // If nothing has been sensed, do nothing else.
+        // If nothing has been sensed, but something is no longer detected, hide the Revive guage.
+        if (RevivableSensor.HasSensedNothing)
+        {
+            if (RevivableSensor.HasLeft)
+            {
+                DebugMessage("An object that can revive has left the sensor, and nothing else that can is nearby.");
+                GameUIController.ShowRevivingGauge(false);
+            }
+
+            return;
+        }
+
+        // If something has just been sensed, show the revive guage.
+        if (RevivableSensor.HasEntered)
+        {
+            GameUIController.ShowRevivingGauge(true);
+        }
+
+        // If something is being sensed, increment the gauge
         ReviveStatus.Increase(ReviveRate.Value);
         FormattedDebugMessage(LogLevel.Info, "Reviving {0}: {1}/{2}", gameObject.name, ReviveStatus.Value, ReviveStatus.ValueCap);
         GameUIController.UpdateRevivingGauge(ReviveStatus.Value, ReviveStatus.ValueCap);
 
-        ReviveUpdateLockout.NoteLastOccurrence();
-
+        // If the revive is complete, hide the gauge, spawn the revived object.
         if(ReviveStatus.IsAtMax)
         {
             FormattedDebugMessage(LogLevel.Info, "Reviving {0} as {1}", gameObject.name, ReviveModelName);
+
             gameObject.SetActive(false);
+            GameUIController.ShowRevivingGauge(false);
+            ScoreManager.NoteChickenRescue();
+
             MatchEntityManager.SpawnMob(transform.position, transform.rotation, ReviveModelName);
         }
     }

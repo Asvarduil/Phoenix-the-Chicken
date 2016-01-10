@@ -342,7 +342,7 @@ public class MobActuator : DebuggableBehavior
            && Vector3.Distance(transform.position, _currentTarget.transform.position) < 1.0f)
         {
             // TODO: Wait for a couple of seconds in the wait animation, then move again!
-            _currentTarget = MatchWaypointManager.FindNearestWaypoint(transform.position, _currentTarget);
+            _currentTarget = MatchWaypointManager.FindRandomWaypointInRange(transform.position, _currentTarget);
         }
 
         List<GameObject> sensedEntities = Detector.SensedEntities;

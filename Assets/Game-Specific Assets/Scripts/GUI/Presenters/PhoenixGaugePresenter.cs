@@ -21,6 +21,9 @@ public class PhoenixGaugePresenter : UGUIPresenterBase
         AscendingPhoenixGauge.HideGauge();
         DescendingPhoenixGauge.HideGauge();
         RevivingPhoenixGauge.HideGauge();
+
+        GaugePresenter newGauge = GetGaugeByCurrentState();
+        newGauge.ShowGauge();
     }
 
     #endregion Hooks
@@ -61,7 +64,6 @@ public class PhoenixGaugePresenter : UGUIPresenterBase
                 throw new InvalidOperationException("Unexpected Phoenix Gauge State: " + PhoenixGaugeState);
         }
     }
-
 
     #endregion Methods
 }

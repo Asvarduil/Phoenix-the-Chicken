@@ -1,15 +1,30 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿public class TitleUIPresenter : UGUIPresenterBase
+{
+    #region Variables / Properties
 
-public class TitleUIPresenter : MonoBehaviour {
+    private TitleUIController _controller;
+    private TitleUIController Controller
+    {
+        get { return _controller ?? (_controller = TitleUIController.Instance); }
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    #endregion Variables / Properties
+
+    #region Hooks
+
+    public void NewGame()
+    {
+        Controller.NewGame();
+    }
+
+    public void Quit()
+    {
+        Controller.Quit();
+    }
+
+    #endregion Hooks
+
+    #region Methods
+
+    #endregion Methods
 }

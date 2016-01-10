@@ -68,7 +68,7 @@
             "PlayerState":"Phoenix",
             "AscensionEffectPath":"",
             "AscensionLevelForNextPhase":0,
-            "NextPlayerModelName":"Phoenix",
+            "NextPlayerModelName":"Ash Pile",
             "TagsThatCauseDeath":[
             ],
             "DeathModelName":"ChickenWing",
@@ -102,10 +102,10 @@
                 },
                 {
                     "Name":"AscensionRate",
-                    "Value":-5
-                    "ValueCap": -5,
+                    "Value":5,
+                    "ValueCap": 10,
                     "FixedModifier":0,
-                    "ScalingModifier":1
+                    "ScalingModifier":-1
                 },
                 {
                     "Name":"AscensionLockoutRate",
@@ -118,6 +118,67 @@
                     "Name":"MoveSpeed",
                     "Value":10,
                     "ValueCap":20,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                }
+            ]
+        },
+        {
+            "Name":"Ash Pile",
+            "Tag":"Dead Chicken",
+            "PlayerState":"Reviving",
+            "AscensionEffectPath":"",
+            "AscensionLevelForNextPhase":100,
+            "NextPlayerModelName":"Chicken",
+            "TagsThatCauseDeath":[
+            ],
+            "DeathModelName":"",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/Ash Pile",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":0.5,
+                    "y":0.5,
+                    "z":0.5
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":0,
+                    "z":0
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":""
+            },
+            "Stats":[
+                {
+                    "Name":"AscensionLevel",
+                    "Value":0,
+                    "ValueCap": 100,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionRate",
+                    "Value":5,
+                    "ValueCap": 10,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"AscensionLockoutRate",
+                    "Value":2,
+                    "ValueCap":2,
+                    "FixedModifier":0,
+                    "ScalingModifier":1
+                },
+                {
+                    "Name":"MoveSpeed",
+                    "Value":0,
+                    "ValueCap":0,
                     "FixedModifier":0,
                     "ScalingModifier":1
                 }

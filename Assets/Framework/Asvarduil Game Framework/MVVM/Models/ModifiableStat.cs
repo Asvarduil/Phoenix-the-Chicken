@@ -66,6 +66,16 @@ public class ModifiableStat : INamed, ICloneable
         return clone;
     }
 
+    public void Alter(int amount)
+    {
+        Value += amount;
+
+        if (Value > ValueCap)
+            Value = ValueCap;
+        else if (Value < 0)
+            Value = 0;
+    }
+
     public void Increase(int amount)
     {
         Value += amount;

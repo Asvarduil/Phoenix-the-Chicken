@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class GameUIController : ManagerBase<GameUIController>
@@ -18,6 +19,15 @@ public class GameUIController : ManagerBase<GameUIController>
         get
         {
             return _fader ?? (_fader = FindObjectOfType<Fader>());
+        }
+    }
+
+    private ScoreManager _scoreManager;
+    private ScoreManager ScoreManager
+    {
+        get
+        {
+            return _scoreManager ?? (_scoreManager = ScoreManager.Instance);
         }
     }
 
@@ -52,6 +62,11 @@ public class GameUIController : ManagerBase<GameUIController>
 
     #region Hooks
 
+    public void Start()
+    {
+        ScoreManager.BeginReckoning();
+    }
+
     public void ShowPhoenixGauge(bool presentGauge)
     {
         PhoenixGaugePresenter.PresentGUI(presentGauge);
@@ -71,6 +86,9 @@ public class GameUIController : ManagerBase<GameUIController>
     public void ShowRevivingGauge(bool presentGauge)
     {
         RevivingGaugePresenter.PresentGUI(presentGauge);
+
+        if (!presentGauge)
+            RevivingGaugePresenter.SetPercentage(0);
     }
 
     public void UpdateRevivingGauge(int current, int max)
@@ -80,10 +98,13 @@ public class GameUIController : ManagerBase<GameUIController>
 
     public void ShowFailureUI()
     {
+        ScoreManager.EndReckoning();
+
         ShowRevivingGauge(false);
         ShowPhoenixGauge(false);
 
         // TODO: Populate the survival time and numbers of chickens revived.
+        GameOverPresenter.PresentScore(ScoreManager.CurrentScore.SurvivalTime, ScoreManager.CurrentScore.ChickensSaved);
         GameOverPresenter.PresentGUI(true);
     }
 

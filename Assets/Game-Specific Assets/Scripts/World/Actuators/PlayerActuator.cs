@@ -303,7 +303,7 @@ public class PlayerActuator : DebuggableBehavior
         if (!AscensionLockout.CanAttempt())
             return;
 
-        AscensionLevel.Value += AscensionRate.Value;
+        AscensionLevel.Alter(AscensionRate.ModifiedValue);
         if (AscensionLevel.Value > AscensionLevel.ValueCap)
             AscensionLevel.Value = AscensionLevel.ValueCap;
         else if (AscensionLevel.Value < 0)

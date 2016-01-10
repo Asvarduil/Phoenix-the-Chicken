@@ -79,7 +79,10 @@ public class MatchEntityManager : ManagerBase<MatchEntityManager>
             actuator = existingObject.GameObject.GetComponent<PlayerActuator>();
             actuator.ResetActuator(model);
 
+            existingObject.GameObject.transform.position = position;
+            existingObject.GameObject.transform.rotation = rotation;
             existingObject.GameObject.SetActive(true);
+            RPGCamera.SetTarget(existingObject.GameObject);
             return;
         }
 
