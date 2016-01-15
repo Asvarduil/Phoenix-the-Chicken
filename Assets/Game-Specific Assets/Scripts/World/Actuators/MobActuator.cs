@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobActuator : DebuggableBehavior
+public class MobActuator : BaseActuator<AIModel>
 {
     #region Variables / Properties
 
@@ -88,7 +88,7 @@ public class MobActuator : DebuggableBehavior
 
     #region Realization Methods
 
-    public void RealizeModel(AIModel model)
+    public override void RealizeModel(AIModel model)
     {
         gameObject.name = model.Name;
         gameObject.tag = model.Tag;
@@ -97,7 +97,7 @@ public class MobActuator : DebuggableBehavior
         RealizeMeshDetails(model.MeshDetail);
     }
 
-    public void ResetActuator(AIModel model)
+    public override void ResetActuator(AIModel model)
     {
         RealizeStats(model);
     }
@@ -115,100 +115,6 @@ public class MobActuator : DebuggableBehavior
         ModifiableStat moveSpeed = Stats.FindItemByName("MoveSpeed");
         if(moveSpeed != null)
             Motion.MovementSpeed = moveSpeed.Value;
-    }
-
-    private void RealizeMeshDetails(MeshDetail meshDetail)
-    {
-        RealizeMesh(meshDetail);
-        RealizeMeshRenderer(meshDetail);
-    }
-
-    private void RealizeMesh(MeshDetail meshDetail)
-    {
-        if (string.IsNullOrEmpty(meshDetail.MeshPath))
-            return;
-
-        gameObject.transform.localScale = meshDetail.ObjectScale;
-
-        GameObject meshObject = Resources.Load<GameObject>(meshDetail.MeshPath);
-        if (meshObject == null)
-            throw new ApplicationException("Could not find a mesh object at path " + meshDetail.MeshPath);
-
-        GameObject meshInstance = (GameObject)Instantiate(meshObject, transform.position, transform.rotation);
-        meshInstance.name = "Mesh";
-        meshInstance.transform.position = transform.position + meshDetail.MeshOffset;
-        meshInstance.transform.localScale = meshDetail.MeshScale;
-        meshInstance.transform.parent = gameObject.transform;
-
-        Animator animator = meshInstance.GetComponent<Animator>();
-        if (animator == null)
-            return;
-
-        RuntimeAnimatorController controller = Resources.Load<RuntimeAnimatorController>(meshDetail.AnimationControllerPath);
-        if(controller != null)
-            animator.runtimeAnimatorController = controller;
-
-        // If the path is wrong, perform no animations!
-    }
-
-    private void RealizeMeshRenderer(MeshDetail meshDetail)
-    {
-        //MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
-        //SkinnedMeshRenderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        Renderer renderer = GetRendererInChildren();
-        if (renderer == null)
-            throw new InvalidOperationException("Could not find a Renderer in any children of game object " + gameObject.name);
-
-        if (meshDetail.MaterialDetails.IsNullOrEmpty())
-            return;
-
-        List<Material> materials = new List<Material>();
-        for (int i = 0; i < meshDetail.MaterialDetails.Count; i++)
-        {
-            MaterialDetail current = meshDetail.MaterialDetails[i];
-            Material newMaterial = ParseMaterial(current);
-            materials.Add(newMaterial);
-        }
-
-        renderer.materials = materials.ToArray();
-    }
-
-    private Renderer GetRendererInChildren()
-    {
-        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
-        if (meshRenderer != null)
-            return meshRenderer;
-
-        SkinnedMeshRenderer skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        if (skinnedMeshRenderer != null)
-            return skinnedMeshRenderer;
-
-        return null;
-    }
-
-    private Material ParseMaterial(MaterialDetail detail)
-    {
-        Material material = Resources.Load<Material>(detail.MaterialPath);
-        if (material == null)
-            throw new ApplicationException("Could not find a material at path " + detail.MaterialPath);
-
-        RealizeTextureOnMaterial(material, detail.TexturePath, detail.TexturePropertyName);
-        RealizeTextureOnMaterial(material, detail.BumpPath, detail.BumpPropertyName);
-        RealizeTextureOnMaterial(material, detail.EmissivePath, detail.EmissivePropertyName);
-
-        return material;
-    }
-
-    private void RealizeTextureOnMaterial(Material material, string texturePath, string propertyName)
-    {
-        if (material == null)
-            throw new InvalidOperationException("Cannot realize textures on a null material.");
-
-        if (string.IsNullOrEmpty(texturePath))
-            return;
-
-        Texture2D diffuseTexture = Resources.Load<Texture2D>(texturePath);
-        material.SetTexture(propertyName, diffuseTexture);
     }
 
     #endregion Realization Methods

@@ -26,15 +26,14 @@ public class MeshDetailMapping : SimpleJsonMapper<MeshDetail>
 
     public override MeshDetail ImportState(JSONClass node)
     {
-        MeshDetail newModel = new MeshDetail
-        {
-            MeshPath = node["MeshPath"],
-            ObjectScale = node["ObjectScale"].ImportVector3(),
-            MeshScale = node["MeshScale"].ImportVector3(),
-            MeshOffset = node["MeshOffset"].ImportVector3(),
-            MaterialDetails = node["MaterialDetails"].AsArray.MapArrayWithMapper(MaterialDetailMapper),
-            AnimationControllerPath = node["AnimationControllerPath"]
-        };
+        MeshDetail newModel = new MeshDetail();
+
+        newModel.MeshPath = node["MeshPath"];
+        newModel.ObjectScale = node["ObjectScale"].ImportVector3();
+        newModel.MeshScale = node["MeshScale"].ImportVector3();
+        newModel.MeshOffset = node["MeshOffset"].ImportVector3();
+        newModel.MaterialDetails = node["MaterialDetails"].AsArray.MapArrayWithMapper(MaterialDetailMapper);
+        newModel.AnimationControllerPath = node["AnimationControllerPath"];
 
         return newModel;
     }

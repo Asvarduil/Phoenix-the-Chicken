@@ -4,28 +4,44 @@ using SimpleJSON;
 
 public class MaterialDetailMapping : SimpleJsonMapper<MaterialDetail>
 {
-    public override JSONClass ExportState(MaterialDetail data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override MaterialDetail ImportState(JSONClass node)
-    {
-        throw new NotImplementedException();
-    }
-
     public override List<MaterialDetail> Map(object rawSource)
     {
-        throw new NotImplementedException();
-    }
+        if (!(rawSource is JSONNode))
+            throw new InvalidOperationException("MeshDetailMappings can only be JSONNode objects.");
 
-    public override List<MaterialDetail> MapFromJson(JSONNode parsed)
-    {
-        throw new NotImplementedException();
+        return MapFromJson(rawSource as JSONNode);
     }
 
     public override object UnMap(MaterialDetail sourceObject)
     {
-        throw new NotImplementedException();
+        return ExportState(sourceObject);
+    }
+
+    public override JSONClass ExportState(MaterialDetail data)
+    {
+        throw new DataException("Material Details are read-only.");
+    }
+
+    public override MaterialDetail ImportState(JSONClass node)
+    {
+        MaterialDetail model = new MaterialDetail
+        {
+            MaterialPath = node["MaterialPath"],
+            TexturePropertyName = node["TexturePropertyName"],
+            BumpPropertyName = node["BumpPropertyName"],
+            EmissivePropertyName = node["EmissivePropertyName"],
+            TexturePath = node["TexturePath"],
+            BumpPath = node["BumpPath"],
+            EmissivePath = node["EmissivePath"]
+        };
+
+        return model;
+    }
+
+    public override List<MaterialDetail> MapFromJson(JSONNode parsed)
+    {
+        JSONArray jsonModels = parsed["MaterialDetails"].AsArray;
+        List<MaterialDetail> result = jsonModels.MapArrayWithMapper(this);
+        return result;
     }
 }

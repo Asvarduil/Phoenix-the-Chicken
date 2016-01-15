@@ -31,6 +31,9 @@ namespace SimpleJSON
 
         public static Vector3 ImportVector3(this JSONNode jsonObject)
         {
+            if (jsonObject == null)
+                throw new DataException("Cannot import Vector3, as the JSONNode is null.");
+
             Vector3 result = new Vector3();
 
             result.x = jsonObject["x"].AsFloat;
@@ -42,6 +45,9 @@ namespace SimpleJSON
 
         public static Vector2 ImportVector2(this JSONNode jsonObject)
         {
+            if (jsonObject == null)
+                throw new DataException("Cannot import Vector2, as the JSONNode is null.");
+
             Vector2 result = new Vector2();
 
             result.x = jsonObject["x"].AsFloat;

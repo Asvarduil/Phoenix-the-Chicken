@@ -1,0 +1,27 @@
+﻿{
+    "SpawnPoints":[
+        {
+            "Name":"Human House",
+            "MeshDetail":{
+                "MeshPath":"Visual/Meshes/HumanHouse",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":4,
+                    "y":4,
+                    "z":4
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":-0.3,
+                    "z":4
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":""
+            }
+        }
+    ]
+}

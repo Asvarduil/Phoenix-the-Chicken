@@ -14,11 +14,13 @@
 
     public void NewGame()
     {
+        PlayButtonSound();
         Controller.NewGame();
     }
 
     public void Quit()
     {
+        PlayButtonSound();
         Controller.Quit();
     }
 

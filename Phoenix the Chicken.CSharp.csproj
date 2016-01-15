@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -108,20 +110,31 @@
     <Compile Include="Assets\Framework\Asvarduil Game Framework\MVVM\Models\MeshDetail.cs" />
     <Compile Include="Assets\Framework\Asvarduil Game Framework\MVVM\Models\ModifiableStat.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\AIDataAccessor.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\MapDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\PlayerDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\RevivableDataAccessor.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\SpawnPointDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\AIMapping.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\MapMapping.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\MapObjectMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\PlayerMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\RankedTagReactionMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\RevivableMapping.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\SpawnPointMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\AIBehavior.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\AIModel.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\MapModel.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\MapObjectModel.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\MapObjectType.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\PlayerModel.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\RankedTagReaction.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\RevivableModel.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\SpawnPointModel.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\AIRepository.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\MapRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\PlayerRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\RevivableRepository.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\SpawnPointRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Controllers\GameUIController.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Controllers\TitleUIController.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\GameOverPresenter.cs" />
@@ -129,11 +142,14 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\PhoenixGaugePresenter.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\RevivingGaugePresenter.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Presenters\TitleUIPresenter.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\BaseActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\EntityMotion.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\MapActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\MobActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerState.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\RevivableActuator.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\SpawnPointActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\GameObjectPhaseStatePair.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\MatchEntityManager.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\MatchWaypointManager.cs" />
@@ -146,8 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Data\Core Game\AI.txt" />
+    <None Include="Assets\Resources\Data\Core Game\Maps.txt" />
     <None Include="Assets\Resources\Data\Core Game\Player.txt" />
     <None Include="Assets\Resources\Data\Core Game\Revivable.txt" />
+    <None Include="Assets\Resources\Data\Core Game\SpawnPoints.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
