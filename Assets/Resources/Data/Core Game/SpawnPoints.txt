@@ -16,8 +16,33 @@
                 },
                 "MeshOffset":{
                     "x":0,
-                    "y":-0.3,
+                    "y":-1.3,
                     "z":4
+                },
+                "MaterialDetails":[],
+                "AnimationControllerPath":""
+            }
+        }
+    ],
+    "RevivableSpawnPoints":[
+        {
+            "Name":"None",
+            "MeshDetail":{
+                "MeshPath":"",
+                "ObjectScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshScale":{
+                    "x":1,
+                    "y":1,
+                    "z":1
+                },
+                "MeshOffset":{
+                    "x":0,
+                    "y":0,
+                    "z":0
                 },
                 "MaterialDetails":[],
                 "AnimationControllerPath":""

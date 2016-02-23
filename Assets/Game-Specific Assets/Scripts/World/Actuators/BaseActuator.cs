@@ -16,6 +16,23 @@ public abstract class BaseActuator<T> : DebuggableBehavior
         RealizeMeshRenderer(meshDetail);
     }
 
+    protected virtual void RealizeMeshCollider(MeshDetail meshDetail)
+    {
+        if (string.IsNullOrEmpty(meshDetail.MeshPath))
+            return;
+
+        Mesh mesh = Resources.Load<Mesh>(meshDetail.MeshPath);
+        if (mesh == null)
+            throw new ApplicationException("Could not find a mesh object at path " + meshDetail.MeshPath);
+
+        MeshCollider collider = GetComponentInChildren<MeshCollider>();
+        if (collider == null)
+            throw new ApplicationException("Could not find a MeshCollider in any children of game object " + gameObject.name);
+
+        Mesh instance = Instantiate(mesh);
+        collider.sharedMesh = instance;
+    }
+
     protected virtual void RealizeMesh(MeshDetail meshDetail)
     {
         if (string.IsNullOrEmpty(meshDetail.MeshPath))
@@ -43,6 +60,9 @@ public abstract class BaseActuator<T> : DebuggableBehavior
 
     protected virtual void RealizeMeshRenderer(MeshDetail meshDetail)
     {
+        if (string.IsNullOrEmpty(meshDetail.MeshPath))
+            return;
+
         Renderer renderer = GetRendererInChildren();
         if (renderer == null)
             throw new InvalidOperationException("Could not find a MeshRenderer in any children of game object " + gameObject.name);

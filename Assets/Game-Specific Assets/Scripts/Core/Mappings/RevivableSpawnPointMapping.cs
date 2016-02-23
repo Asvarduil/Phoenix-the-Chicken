@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SimpleJSON;
 
-public class SpawnPointMapping : SimpleJsonMapper<SpawnPointModel>
+public class RevivableSpawnPointMapping : SimpleJsonMapper<SpawnPointModel>
 {
     #region Variables / Properties
 
@@ -18,7 +18,7 @@ public class SpawnPointMapping : SimpleJsonMapper<SpawnPointModel>
     public override List<SpawnPointModel> Map(object rawSource)
     {
         if (!(rawSource is JSONNode))
-            throw new DataException("PlayerMapping requires a JSON object imported by SimpleJSON!");
+            throw new DataException("RevivableSpawnPointMapping requires a JSON object imported by SimpleJSON!");
 
         return MapFromJson(rawSource as JSONNode);
     }
@@ -30,7 +30,7 @@ public class SpawnPointMapping : SimpleJsonMapper<SpawnPointModel>
 
     public override JSONClass ExportState(SpawnPointModel data)
     {
-        throw new DataException("SpawnPoints are read-only!");
+        throw new DataException("RevivableSpawnPoints are read-only!");
     }
 
     public override SpawnPointModel ImportState(JSONClass node)
@@ -46,11 +46,10 @@ public class SpawnPointMapping : SimpleJsonMapper<SpawnPointModel>
 
     public override List<SpawnPointModel> MapFromJson(JSONNode parsed)
     {
-        JSONArray jsonModels = parsed["SpawnPoints"].AsArray;
+        JSONArray jsonModels = parsed["RevivableSpawnPoints"].AsArray;
         List<SpawnPointModel> result = jsonModels.MapArrayWithMapper(this);
         return result;
     }
 
     #endregion Methods
 }
-

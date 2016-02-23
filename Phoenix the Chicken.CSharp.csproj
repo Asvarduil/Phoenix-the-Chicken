@@ -113,6 +113,7 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\MapDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\PlayerDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\RevivableDataAccessor.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\RevivableSpawnPointDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Data Accessors\SpawnPointDataAccessor.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\AIMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\MapMapping.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\PlayerMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\RankedTagReactionMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\RevivableMapping.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\RevivableSpawnPointMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Mappings\SpawnPointMapping.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\AIBehavior.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Models\AIModel.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\MapRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\PlayerRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\RevivableRepository.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\RevivableSpawnPointRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\Core\Repositories\SpawnPointRepository.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Controllers\GameUIController.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\GUI\Controllers\TitleUIController.cs" />
@@ -149,6 +152,7 @@
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\PlayerState.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\RevivableActuator.cs" />
+    <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\RevivableSpawnPointActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Actuators\SpawnPointActuator.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\GameObjectPhaseStatePair.cs" />
     <Compile Include="Assets\Game-Specific Assets\Scripts\World\Managers\MatchEntityManager.cs" />

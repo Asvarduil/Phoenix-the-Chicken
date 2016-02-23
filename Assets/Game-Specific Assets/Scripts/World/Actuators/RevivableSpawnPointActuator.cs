@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class SpawnPointActuator : BaseActuator<SpawnPointModel>
+public class RevivableSpawnPointActuator : BaseActuator<SpawnPointModel>
 {
     #region Hooks
 

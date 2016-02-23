@@ -7,10 +7,24 @@ public class MatchMobSpawnRegion : SensorBase
     #region Variables / Properties
 
     public List<string> MobModels;
-    public List<GameObject> SpawnPoints;
     public List<string> OccupyingTags;
     public float EmptyCheckRadius;
     public Lockout SpawnLockout;
+
+    private List<GameObject> _spawnPoints;
+    private List<GameObject> SpawnPoints
+    {
+        get
+        {
+            if (!(_spawnPoints.IsNullOrEmpty()))
+                return _spawnPoints;
+
+            GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
+            _spawnPoints = spawnPoints.ToList();
+
+            return _spawnPoints;
+        }
+    }
 
     private MatchEntityManager _matchEntityManager;
     private MatchEntityManager MatchEntityManager
@@ -25,11 +39,6 @@ public class MatchMobSpawnRegion : SensorBase
 
     #region Hooks
 
-    public void Start()
-    {
-        DetectSpawnPoints();
-    }
-
     new public void Update()
     {
         if (!HasDetectedEntities())
@@ -41,12 +50,6 @@ public class MatchMobSpawnRegion : SensorBase
     #endregion Hooks
 
     #region Methods
-
-    private void DetectSpawnPoints()
-    {
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
-        SpawnPoints = spawnPoints.ToList();
-    }
 
     public override bool HasDetectedEntities()
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,11 @@ public class MapActuator : BaseActuator<MapModel>
     #region Variables / Properties
 
     public GameObject SpawnPointPrototype;
+    public GameObject RevivableSpawnPointPrototype;
     public GameObject WaypointPrototype;
+
+    public GameObject SpawnPointRoot;
+    public GameObject GameObjectRoot;
 
     private MapRepository _mapRepository;
     private MapRepository MapRepository
@@ -19,6 +24,12 @@ public class MapActuator : BaseActuator<MapModel>
     private SpawnPointRepository SpawnPointRepository
     {
         get { return _spawnPointRepository ?? (_spawnPointRepository = SpawnPointRepository.Instance); }
+    }
+
+    private RevivableSpawnPointRepository _revivableSpawnPointRepository;
+    private RevivableSpawnPointRepository RevivableSpawnPointRepository
+    {
+        get { return _revivableSpawnPointRepository ?? (_revivableSpawnPointRepository = RevivableSpawnPointRepository.Instance); }
     }
 
     #endregion Variables / Properties
@@ -63,6 +74,8 @@ public class MapActuator : BaseActuator<MapModel>
         {
             case MapObjectType.SpawnPoint:
                 result = (GameObject)Instantiate(SpawnPointPrototype, model.Position, Quaternion.Euler(model.Rotation));
+                result.transform.SetParent(SpawnPointRoot.transform);
+
                 SpawnPointActuator actuator = result.GetComponent<SpawnPointActuator>();
                 if (actuator == null)
                     throw new ApplicationException("Spawn Point Prototype does not have a Spawn Point Actuator behavior on it!");
@@ -74,8 +87,24 @@ public class MapActuator : BaseActuator<MapModel>
                 actuator.RealizeModel(spawnPointModel);
                 break;
 
+            case MapObjectType.RevivableSpawnPoint:
+                result = (GameObject)Instantiate(RevivableSpawnPointPrototype, model.Position, Quaternion.Euler(model.Rotation));
+                result.transform.SetParent(GameObjectRoot.transform);
+
+                RevivableSpawnPointActuator revivableSpawnPointActuator = result.GetComponent<RevivableSpawnPointActuator>();
+                if (revivableSpawnPointActuator == null)
+                    throw new ApplicationException("Revivable Spawn Point Prototype does not have a Revivable Spawn Point Actuator behavior on it!");
+
+                SpawnPointModel revivableSpawnPointModel = RevivableSpawnPointRepository.GetSpawnPointByName(model.ModelName);
+                if (revivableSpawnPointModel == null)
+                    throw new DataException("Revivable Spawn Point Model " + model.ModelName + " isn't defined in the SpawnPoint data file.");
+
+                revivableSpawnPointActuator.RealizeModel(revivableSpawnPointModel);
+                break;
+
             case MapObjectType.Waypoint:
                 result = (GameObject)Instantiate(WaypointPrototype, model.Position, Quaternion.Euler(model.Rotation));
+                result.transform.SetParent(GameObjectRoot.transform);
                 break;
 
             default:

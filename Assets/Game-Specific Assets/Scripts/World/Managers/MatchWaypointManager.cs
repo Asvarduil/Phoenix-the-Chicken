@@ -6,16 +6,24 @@ public class MatchWaypointManager : ManagerBase<MatchWaypointManager>
 {
     #region Variables / Properties
 
-    public List<GameObject> Waypoints;
+    private List<GameObject> _waypoints;
+    public List<GameObject> Waypoints
+    {
+        get
+        {
+            if (! _waypoints.IsNullOrEmpty())
+                return _waypoints;
+
+            GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+            _waypoints = waypoints.ToList();
+
+            return _waypoints;
+        }
+    }
 
     #endregion Variables / Properties
 
     #region Hooks
-
-    public void Start()
-    {
-        FindWaypoints();
-    }
 
     public GameObject FindRandomWaypointInRange(Vector3 position, GameObject excludeWaypoint = null, float seekDistance = 10.0f)
     {
@@ -64,12 +72,6 @@ public class MatchWaypointManager : ManagerBase<MatchWaypointManager>
     #endregion Hooks
 
     #region Methods
-
-    private void FindWaypoints()
-    {
-        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        Waypoints = waypoints.ToList();
-    }
 
     #endregion Methods
 }
